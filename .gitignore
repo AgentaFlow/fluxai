@@ -30,3 +30,9 @@ go.work.sum
 # Editor/IDE
 # .idea/
 # .vscode/
+fluxai.code-workspace
+fluxai-implementation-guide.md
+fluxai-overview.md
+fluxai-quick-start.md
+fluxai-technical-spec.md
+CLAUDE.md
