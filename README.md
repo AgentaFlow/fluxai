@@ -8,7 +8,7 @@ FluxAI is a cost optimization and observability platform for AWS Bedrock that he
 
 ## 🎥 Demo Video
 
-[![FluxAI Demo](https://img.youtube.com/vi/V8Ti5Q-7ffY/maxresdefault.jpg)](https://youtu.be/V8Ti5Q-7ffY)
+[![FluxAI Demo](https://img.youtube.com/vi/U8jHmLgnpkw/maxresdefault.jpg)](https://youtu.be/U8jHmLgnpkw)
 
 *Click the image above to watch our 3-minute demo showing FluxAI in action*
 
