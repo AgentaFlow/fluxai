@@ -95,7 +95,7 @@ Request trace exploration:
 PROMETHEUS_URL=http://localhost:9090
 
 # Database connection
-DATABASE_URL=postgresql://fluxai:dev_password@localhost:5432/fluxai
+DATABASE_URL=postgresql://fluxai:your_password@localhost:5432/fluxai
 
 # Auto-refresh settings
 AUTO_REFRESH=true
