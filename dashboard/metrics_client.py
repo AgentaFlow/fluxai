@@ -51,7 +51,7 @@ class MetricsClient:
             with self.Session() as session:
                 session.execute(text("SELECT 1"))
             return True
-        except:
+        except Exception:
             return False
     
     def _query_prometheus(
