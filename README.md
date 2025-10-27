@@ -60,8 +60,9 @@ FluxAI is a drop-in optimization layer that sits between your applications and A
 2. **💰 Cost Tracking**: Real-time cost calculation per request with detailed analytics
 3. **🧠 Semantic Caching**: 30-50% cost reduction through intelligent response caching using AWS Bedrock Titan Embeddings
 4. **🔀 Smart Routing**: Cost, latency, or capability-based model selection
-5. **📊 Analytics Dashboard**: Beautiful real-time metrics and cost insights
+5. **📊 Analytics Dashboard**: Beautiful real-time metrics and cost insights with Streamlit
 6. **🔔 Cost Alerts**: Threshold notifications and anomaly detection
+7. **🔍 Observability**: Complete monitoring with Prometheus, OpenTelemetry, and distributed tracing
 
 ---
 
@@ -80,6 +81,7 @@ FluxAI is a drop-in optimization layer that sits between your applications and A
 - **[Cost Calculator Guide](COST_CALCULATOR.md)** - Real-time cost tracking, savings analysis, and optimization recommendations
 - **[Multi-Model Router](ROUTER_IMPLEMENTATION.md)** - Intelligent model selection based on cost, latency, or capabilities
 - **[Observability System](OBSERVABILITY.md)** - Comprehensive monitoring with Prometheus metrics, OpenTelemetry tracing, and structured logging
+- **[Dashboard Guide](dashboard/README.md)** - Interactive Streamlit dashboard for real-time monitoring and analytics
 
 ### API Reference
 
@@ -113,6 +115,9 @@ uvicorn app.main:app --reload
 
 # 6. Open the dashboard
 open http://localhost:8080/docs
+
+# 7. Launch observability dashboard (optional)
+streamlit run dashboard/app.py
 ```
 
 See [GETTING_STARTED.md](GETTING_STARTED.md) for detailed setup instructions.
