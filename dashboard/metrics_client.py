@@ -404,7 +404,7 @@ class MetricsClient:
         if savings_result and savings_result["data"]["result"]:
             cost_saved = float(savings_result["data"]["result"][0]["value"][1])
         
-        # Calculate tokens saved from actual metrics
+        # Calculate tokens saved: try actual metric, fallback to estimate (hits * avg_tokens)
         tokens_saved_query = f"sum(increase(fluxai_cache_tokens_saved_total[{time_range}]))"
         tokens_saved_result = self._query_prometheus(tokens_saved_query, time_range)
         tokens_saved = 0
