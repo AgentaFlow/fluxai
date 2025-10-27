@@ -136,7 +136,7 @@ class MetricsClient:
                     text("SELECT DISTINCT name FROM accounts ORDER BY name")
                 )
                 return [row[0] for row in result]
-        except:
+        except Exception:
             return []
     
     def get_models(self) -> List[str]:
