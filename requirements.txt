@@ -39,6 +39,7 @@ aiohttp==3.9.1
 python-dotenv==1.0.0
 structlog==23.2.0
 tenacity==8.2.3
+numpy==1.26.2
 
 # Testing
 pytest==7.4.3

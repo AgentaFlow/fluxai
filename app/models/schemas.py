@@ -126,12 +126,19 @@ class CacheSavings(BaseModel):
     requests_saved: int
     cost_saved: float
     tokens_saved: int
+    embedding_cost: Optional[float] = Field(default=0.0)
+    net_savings: Optional[float] = Field(default=0.0)
 
 
 class CacheStatsResponse(BaseModel):
     """Cache statistics response."""
     hit_rate: float
+    total_requests: int
+    exact_hits: int
+    semantic_hits: int
     total_hits: int
-    total_misses: int
+    misses: int
     cache_size_mb: int
     savings: CacheSavings
+    semantic_enabled: bool
+    similarity_threshold: float
