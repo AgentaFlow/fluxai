@@ -112,19 +112,18 @@ class CacheService:
             if not cache_ids:
                 return None
             
-            # Fetch embeddings for all cached entries
+            # Fetch embeddings for all cached entries using MGET
             embeddings = []
             valid_cache_ids = []
-            
-            for cache_id in cache_ids:
-                embedding_key = self._generate_embedding_key(cache_id)
-                embedding_data = await self.redis_client.get(embedding_key)
-                
+
+            embedding_keys = [self._generate_embedding_key(cache_id) for cache_id in cache_ids]
+            embedding_datas = await self.redis_client.mget(embedding_keys)
+
+            for cache_id, embedding_data in zip(cache_ids, embedding_datas):
                 if embedding_data:
                     embedding = json.loads(embedding_data)
                     embeddings.append(embedding)
                     valid_cache_ids.append(cache_id)
-            
             if not embeddings:
                 return None
             
