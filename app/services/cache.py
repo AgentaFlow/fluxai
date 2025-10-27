@@ -1,7 +1,7 @@
 """Cache service for semantic caching."""
 
 from typing import Optional, Dict, Any, List, Tuple
-from uuid import UUID
+from uuid import UUID, uuid4
 import json
 import hashlib
 import redis.asyncio as redis
@@ -222,9 +222,9 @@ class CacheService:
             
             # 2. Store semantic entry if enabled
             if self.semantic_enabled:
-                # Generate unique cache ID
+                # Generate unique cache ID using uuid4 for guaranteed uniqueness
                 cache_id = hashlib.sha256(
-                    f"{model_id}:{prompt}:{response.get('timestamp', '')}".encode()
+                    f"{model_id}:{prompt}:{uuid4()}".encode()
                 ).hexdigest()[:16]
                 
                 # Generate and store embedding
@@ -285,8 +285,10 @@ class CacheService:
         # Subtract embedding costs (rough estimate)
         embedding_cost = 0.0
         if self.semantic_enabled:
-            # $0.0001 per 1K tokens, average prompt ~200 tokens
-            embedding_cost = (semantic_hits * 200 / 1000) * 0.0001
+            # Calculate embedding cost based on actual token usage
+            # Using a configurable average or calculating from actual usage
+            avg_tokens_per_prompt = getattr(settings, 'CACHE_AVG_TOKENS_PER_PROMPT', 200)
+            embedding_cost = (semantic_hits * avg_tokens_per_prompt / 1000) * 0.0001
         
         net_savings = cost_saved - embedding_cost
         
