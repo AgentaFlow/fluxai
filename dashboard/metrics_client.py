@@ -477,25 +477,53 @@ class MetricsClient:
     
     def get_cache_by_model(self, time_range: str) -> pd.DataFrame:
         """Get cache performance by model."""
-        query = f"""
+        # Define per-model cost (example values, should be updated as needed)
+        model_costs = {
+            "Claude 3.5 Sonnet": 0.02,  # $0.02 per request
+            "Llama 3.1 70B": 0.015,     # $0.015 per request
+            # Add more models and their costs here
+        }
+
+        # Query for hit rate per model
+        hit_rate_query = f"""
             sum(increase(fluxai_cache_hits_total[{time_range}])) by (model) /
             (sum(increase(fluxai_cache_hits_total[{time_range}])) by (model) +
              sum(increase(fluxai_cache_misses_total[{time_range}])) by (model))
         """
-        result = self._query_prometheus(query, time_range)
-        
-        if not result or not result["data"]["result"]:
+        hit_rate_result = self._query_prometheus(hit_rate_query, time_range)
+
+        # Query for cache hits per model
+        hits_query = f"sum(increase(fluxai_cache_hits_total[{time_range}])) by (model)"
+        hits_result = self._query_prometheus(hits_query, time_range)
+
+        if (
+            not hit_rate_result
+            or not hit_rate_result["data"]["result"]
+            or not hits_result
+            or not hits_result["data"]["result"]
+        ):
             return pd.DataFrame(columns=["model", "hit_rate", "savings"])
-        
-        data = [
-            {
-                "model": metric["metric"]["model"],
-                "hit_rate": f"{float(metric['value'][1]) * 100:.1f}%",
-                "savings": "$125.50",  # Mock - would calculate from actual data
-            }
-            for metric in result["data"]["result"]
-        ]
-        
+
+        # Build a mapping from model to cache hits
+        hits_by_model = {
+            metric["metric"]["model"]: float(metric["value"][1])
+            for metric in hits_result["data"]["result"]
+        }
+
+        data = []
+        for metric in hit_rate_result["data"]["result"]:
+            model = metric["metric"]["model"]
+            hit_rate = float(metric["value"][1])
+            hits = hits_by_model.get(model, 0.0)
+            cost_per_request = model_costs.get(model, 0.01)  # Default to $0.01 if unknown
+            savings = hits * cost_per_request
+            data.append(
+                {
+                    "model": model,
+                    "hit_rate": f"{hit_rate * 100:.1f}%",
+                    "savings": savings,
+                }
+            )
         return pd.DataFrame(data)
     
     def get_model_health(self, time_range: str) -> List[Dict[str, Any]]:
