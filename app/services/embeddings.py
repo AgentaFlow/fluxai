@@ -153,7 +153,7 @@ class EmbeddingService:
         """
         Estimate cost for generating embedding.
         
-        Titan Embeddings pricing (as of Oct 2025):
+        Titan Embeddings pricing (as of Jan 2025):
         - $0.0001 per 1K input tokens
         
         Args:
