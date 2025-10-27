@@ -58,6 +58,14 @@ class Settings(BaseSettings):
     CACHE_ENABLED: bool = True
     CACHE_TTL_SECONDS: int = 3600
     CACHE_SIMILARITY_THRESHOLD: float = 0.95
+    CACHE_SEMANTIC_ENABLED: bool = True  # Enable semantic caching with embeddings
+    CACHE_EXACT_MATCH_FIRST: bool = True  # Try exact match before semantic
+    
+    # Embedding Configuration
+    EMBEDDING_MODEL: str = "amazon.titan-embed-text-v1"  # Bedrock Titan Embeddings
+    EMBEDDING_DIMENSION: int = 1536  # Titan embeddings dimension
+    EMBEDDING_BATCH_SIZE: int = 25  # Max batch size for Bedrock
+    EMBEDDING_CACHE_TTL: int = 86400  # Cache embeddings for 24 hours
     
     # Cost Tracking
     ENABLE_COST_TRACKING: bool = True

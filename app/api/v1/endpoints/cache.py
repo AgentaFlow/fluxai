@@ -18,6 +18,11 @@ async def get_cache_stats(
 ):
     """
     Get cache statistics for the account.
+    
+    Returns statistics including:
+    - Hit rates (exact and semantic)
+    - Cost savings breakdown
+    - Semantic cache configuration
     """
     logger.info("Fetching cache stats", account_id=str(account.id))
     
@@ -25,14 +30,21 @@ async def get_cache_stats(
     
     return CacheStatsResponse(
         hit_rate=stats.get("hit_rate", 0.0),
+        total_requests=stats.get("total_requests", 0),
+        exact_hits=stats.get("exact_hits", 0),
+        semantic_hits=stats.get("semantic_hits", 0),
         total_hits=stats.get("total_hits", 0),
-        total_misses=stats.get("total_misses", 0),
+        misses=stats.get("misses", 0),
         cache_size_mb=stats.get("cache_size_mb", 0),
         savings={
             "requests_saved": stats.get("requests_saved", 0),
             "cost_saved": stats.get("cost_saved", 0.0),
             "tokens_saved": stats.get("tokens_saved", 0),
+            "embedding_cost": stats.get("embedding_cost", 0.0),
+            "net_savings": stats.get("net_savings", 0.0),
         },
+        semantic_enabled=stats.get("semantic_enabled", False),
+        similarity_threshold=stats.get("similarity_threshold", 0.95),
     )
 
 
