@@ -36,7 +36,9 @@ try {
 Write-Host ""
 Write-Host "📊 Dashboard Configuration:" -ForegroundColor Cyan
 Write-Host "   Prometheus: $env:PROMETHEUS_URL" -ForegroundColor Gray
-Write-Host "   Database:   $env:DATABASE_URL" -ForegroundColor Gray
+# Redact password in DATABASE_URL before displaying
+$redactedDatabaseUrl = $env:DATABASE_URL -replace '(:\/\/[^:]+:)[^@]+(@)', '${1}*****${2}'
+Write-Host "   Database:   $redactedDatabaseUrl" -ForegroundColor Gray
 Write-Host ""
 
 # Start Streamlit
