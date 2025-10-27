@@ -53,6 +53,13 @@ async def invoke_model(
         cache_enabled=x_enable_cache,
     )
     
+    # Validate messages list is not empty
+    if not request.messages:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Messages list cannot be empty",
+        )
+    
     try:
         # Check cache if enabled
         cache_hit = False
