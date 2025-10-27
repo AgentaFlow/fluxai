@@ -222,9 +222,9 @@ class CacheService:
             
             # 2. Store semantic entry if enabled
             if self.semantic_enabled:
-                # Generate unique cache ID using uuid4 for guaranteed uniqueness
+                # Generate deterministic cache ID based on model_id and prompt
                 cache_id = hashlib.sha256(
-                    f"{model_id}:{prompt}:{uuid4()}".encode()
+                    f"{model_id}:{prompt}".encode()
                 ).hexdigest()[:16]
                 
                 # Generate and store embedding
