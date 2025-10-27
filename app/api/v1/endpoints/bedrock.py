@@ -66,8 +66,9 @@ async def invoke_model(
         cached_response = None
         
         if x_enable_cache and cache_service.is_enabled():
+            prompt = request.messages[-1].content if request.messages else ""
             cached_response = await cache_service.get(
-                prompt=request.messages[-1].content,
+                prompt=prompt,
                 model_id=request.model,
             )
             
@@ -94,13 +95,14 @@ async def invoke_model(
                 max_tokens=request.max_tokens,
                 temperature=request.temperature,
             )
-            
             # Cache the response
             if x_enable_cache and cache_service.is_enabled():
+                prompt = request.messages[-1].content if request.messages else ""
                 await cache_service.set(
-                    prompt=request.messages[-1].content,
+                    prompt=prompt,
                     model_id=model_id,
                     response=bedrock_response,
+                )
                 )
             
             response_data = bedrock_response
