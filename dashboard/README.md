@@ -243,6 +243,7 @@ Build and run:
    DATABASE_URL=postgresql://fluxai:yourpassword@db:5432/fluxai
 ### Kubernetes Deployment
 
+To deploy the dashboard on Kubernetes, create the following manifest file and apply it to your cluster:
 Create `k8s/dashboard-deployment.yaml`:
 
 ```yaml
