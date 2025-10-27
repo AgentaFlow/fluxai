@@ -1,0 +1,115 @@
+# FluxAI - Docker Ignore File
+# Prevents unnecessary files from being copied into Docker images
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+*.log
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Documentation
+*.md
+!README.md
+docs/
+SEMANTIC_CACHE.md
+SEMANTIC_CACHE_SUMMARY.md
+COST_CALCULATOR.md
+COST_CALCULATOR_IMPLEMENTATION.md
+OBSERVABILITY.md
+OBSERVABILITY_IMPLEMENTATION.md
+ROUTER_IMPLEMENTATION.md
+TESTING_CHECKLIST.md
+fluxai-*.md
+PROJECT.md
+CLAUDE.md
+
+# Dashboard (separate service)
+dashboard/
+start-dashboard.ps1
+start-dashboard.sh
+
+# Docker files
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Monitoring configs (should be volume mounted)
+prometheus.yml
+grafana/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Testing
+tests/
+test_*.py
+*_test.py
