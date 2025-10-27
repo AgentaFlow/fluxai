@@ -6,6 +6,7 @@ Distributed tracing for FluxAI Gateway using OpenTelemetry.
 
 from typing import Optional, Dict, Any
 from contextlib import contextmanager
+import os
 import structlog
 
 from opentelemetry import trace
@@ -61,12 +62,14 @@ class TracingMiddleware:
         
         # Create tracer provider
         self.tracer_provider = TracerProvider(resource=resource)
-        
         # Add OTLP exporter if endpoint configured
         if self.otlp_endpoint:
+            # Use TLS by default, allow insecure only if explicitly set via environment
+            use_insecure = os.getenv("OTLP_INSECURE", "false").lower() == "true"
             otlp_exporter = OTLPSpanExporter(
                 endpoint=self.otlp_endpoint,
-                insecure=True,  # Use TLS in production
+                insecure=use_insecure,
+            )
             )
             span_processor = BatchSpanProcessor(otlp_exporter)
             self.tracer_provider.add_span_processor(span_processor)
