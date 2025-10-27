@@ -404,26 +404,28 @@ class MetricsClient:
         if savings_result and savings_result["data"]["result"]:
             cost_saved = float(savings_result["data"]["result"][0]["value"][1])
         
+        # Calculate tokens saved from actual metrics
+        tokens_saved_query = f"sum(increase(fluxai_cache_tokens_saved_total[{time_range}]))"
+        tokens_saved_result = self._query_prometheus(tokens_saved_query, time_range)
+        tokens_saved = 0
+        if tokens_saved_result and tokens_saved_result["data"]["result"]:
+            tokens_saved = int(float(tokens_saved_result["data"]["result"][0]["value"][1]))
+        else:
+            # Fallback: estimate based on average tokens per hit
+            avg_tokens_query = f"sum(increase(fluxai_input_tokens_total[{time_range}]) + increase(fluxai_output_tokens_total[{time_range}])) / sum(increase(fluxai_requests_total[{time_range}]))"
+            avg_tokens_result = self._query_prometheus(avg_tokens_query, time_range)
+            avg_tokens = 1500  # Default fallback
+            if avg_tokens_result and avg_tokens_result["data"]["result"]:
+                avg_tokens = float(avg_tokens_result["data"]["result"][0]["value"][1])
+            tokens_saved = int(hits * avg_tokens)
+        
         return {
             "hit_rate": hit_rate,
             "hit_rate_change": 2.3,  # Mock
             "total_hits": int(hits),
             "hits_change": 5.7,  # Mock
             "cost_saved": cost_saved,
-            # Calculate tokens saved from actual metrics
-            tokens_saved_query = f"sum(increase(fluxai_cache_tokens_saved_total[{time_range}]))"
-            tokens_saved_result = self._query_prometheus(tokens_saved_query, time_range)
-            tokens_saved = 0
-            if tokens_saved_result and tokens_saved_result["data"]["result"]:
-                tokens_saved = int(float(tokens_saved_result["data"]["result"][0]["value"][1]))
-            else:
-                # Fallback: estimate based on average tokens per hit
-                avg_tokens_query = f"sum(increase(fluxai_input_tokens_total[{time_range}]) + increase(fluxai_output_tokens_total[{time_range}])) / sum(increase(fluxai_requests_total[{time_range}]))"
-                avg_tokens_result = self._query_prometheus(avg_tokens_query, time_range)
-                avg_tokens = 1500  # Default fallback
-                if avg_tokens_result and avg_tokens_result["data"]["result"]:
-                    avg_tokens = float(avg_tokens_result["data"]["result"][0]["value"][1])
-                tokens_saved = int(hits * avg_tokens)
+            "tokens_saved": tokens_saved
         }
     
     def get_cache_hit_rate_timeline(self, time_range: str) -> pd.DataFrame:
