@@ -555,9 +555,11 @@ class MetricsClient:
         try:
             with self.Session() as session:
                 conditions = ["timestamp > NOW() - INTERVAL '1 hour'"]
+                params = {"limit": limit}
                 
                 if min_duration_ms:
-                    conditions.append(f"latency_ms >= {min_duration_ms}")
+                    conditions.append("latency_ms >= :min_duration_ms")
+                    params["min_duration_ms"] = min_duration_ms
                 
                 if only_errors:
                     conditions.append("status != 'success'")
@@ -578,7 +580,7 @@ class MetricsClient:
                     LIMIT :limit
                 """)
                 
-                result = session.execute(query, {"limit": limit})
+                result = session.execute(query, params)
                 
                 return [
                     {
