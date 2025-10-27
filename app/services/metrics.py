@@ -135,15 +135,16 @@ class MetricsService:
         # Store to database
         try:
             async with get_db() as db:
+                total_tokens = input_tokens + output_tokens
                 metric = RequestMetric(
                     account_id=account_id,
                     model_id=model_id,
                     region="us-east-1",  # TODO: Get from config
                     input_tokens=input_tokens,
                     output_tokens=output_tokens,
-                    total_tokens=input_tokens + output_tokens,
-                    input_cost=cost * (input_tokens / (input_tokens + output_tokens)) if (input_tokens + output_tokens) > 0 else 0,
-                    output_cost=cost * (output_tokens / (input_tokens + output_tokens)) if (input_tokens + output_tokens) > 0 else 0,
+                    total_tokens=total_tokens,
+                    input_cost=cost * (input_tokens / total_tokens) if total_tokens > 0 else 0,
+                    output_cost=cost * (output_tokens / total_tokens) if total_tokens > 0 else 0,
                     total_cost=cost,
                     latency_ms=latency_ms,
                     cache_hit=cache_hit,
