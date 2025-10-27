@@ -131,6 +131,7 @@ class MetricsService:
             self.metrics["cost_dollars_total"].labels(
                 account_id=str(account_id),
                 model=model_id,
+            ).inc(cost)
         # Store to database
         try:
             async with get_db() as db:
