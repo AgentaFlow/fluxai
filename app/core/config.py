@@ -52,7 +52,15 @@ class Settings(BaseSettings):
     PROMETHEUS_ENABLED: bool = True
     PROMETHEUS_PORT: int = 9090
     OPENTELEMETRY_ENABLED: bool = True
+    OTLP_ENDPOINT: str = "localhost:4317"  # OpenTelemetry Collector endpoint
     JAEGER_ENDPOINT: str = "http://localhost:14268/api/traces"
+    
+    # Logging
+    LOG_FORMAT: str = "json"  # "json" or "text"
+    LOG_OUTPUT: str = "stdout"  # "stdout" or "file"
+    LOG_FILE_PATH: str = "/var/log/fluxai/gateway.log"
+    CLOUDWATCH_LOG_GROUP: str = "fluxai-gateway"
+    CLOUDWATCH_LOG_STREAM: str = "gateway"
     
     # Cache Configuration
     CACHE_ENABLED: bool = True

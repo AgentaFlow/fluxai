@@ -79,6 +79,7 @@ FluxAI is a drop-in optimization layer that sits between your applications and A
 - **[Semantic Cache Implementation](SEMANTIC_CACHE.md)** - How the semantic caching system works, performance characteristics, and cost savings analysis
 - **[Cost Calculator Guide](COST_CALCULATOR.md)** - Real-time cost tracking, savings analysis, and optimization recommendations
 - **[Multi-Model Router](ROUTER_IMPLEMENTATION.md)** - Intelligent model selection based on cost, latency, or capabilities
+- **[Observability System](OBSERVABILITY.md)** - Comprehensive monitoring with Prometheus metrics, OpenTelemetry tracing, and structured logging
 
 ### API Reference
 
@@ -86,6 +87,7 @@ FluxAI is a drop-in optimization layer that sits between your applications and A
 - **Cache API**: `GET /v1/cache/stats`, `DELETE /v1/cache`
 - **Bedrock API**: `POST /v1/bedrock/invoke`, `POST /v1/bedrock/invoke/stream`
 - **Analytics API**: `GET /v1/analytics/cost`
+- **Metrics API**: `GET /metrics` (Prometheus format)
 
 ---
 

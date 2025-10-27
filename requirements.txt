@@ -24,7 +24,9 @@ prometheus-client==0.19.0
 opentelemetry-api==1.21.0
 opentelemetry-sdk==1.21.0
 opentelemetry-instrumentation-fastapi==0.42b0
+opentelemetry-exporter-otlp-proto-grpc==1.21.0
 opentelemetry-exporter-prometheus==0.42b0
+structlog==23.2.0
 
 # Security
 passlib[bcrypt]==1.7.4
@@ -37,7 +39,6 @@ aiohttp==3.9.1
 
 # Utilities
 python-dotenv==1.0.0
-structlog==23.2.0
 tenacity==8.2.3
 numpy==1.26.2
 
