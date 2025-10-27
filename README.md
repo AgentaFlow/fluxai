@@ -77,8 +77,8 @@ FluxAI is a drop-in optimization layer that sits between your applications and A
 ### Deep Dives
 
 - **[Semantic Cache Implementation](SEMANTIC_CACHE.md)** - How the semantic caching system works, performance characteristics, and cost savings analysis
-- **[Project Management](PROJECT.md)** - Project phases, milestones, and progress tracking
-- **[AI Collaboration](CLAUDE.md)** - How this project was built with AI assistance
+- **[Cost Calculator Guide](COST_CALCULATOR.md)** - Real-time cost tracking, savings analysis, and optimization recommendations
+- **[Multi-Model Router](ROUTER_IMPLEMENTATION.md)** - Intelligent model selection based on cost, latency, or capabilities
 
 ### API Reference
 
