@@ -159,8 +159,6 @@ class MetricsService:
                 
                 db.add(metric)
                 await db.commit()
-                db.add(metric)
-                await db.commit()
                 
         except Exception as e:
             logger.error("Failed to store request metric", error=str(e))
