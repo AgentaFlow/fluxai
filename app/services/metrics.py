@@ -7,16 +7,18 @@ import structlog
 
 from app.db.session import get_db
 from app.db.models import RequestMetric
+from app.services.cost_calculator import CostCalculator
 
 logger = structlog.get_logger()
 
 
 class MetricsService:
     """Prometheus metrics service."""
-    
     def __init__(self):
         """Initialize metrics collectors."""
         self.initialized = False
+        self.metrics = {}
+        self.cost_calculator = CostCalculator()
         self.metrics = {}
     
     def initialize(self):
@@ -130,12 +132,15 @@ class MetricsService:
             self.metrics["cost_dollars_total"].labels(
                 account_id=str(account_id),
                 model=model_id,
-            ).inc(cost)
-        
         # Store to database
         try:
             async with get_db() as db:
                 total_tokens = input_tokens + output_tokens
+                
+                # Calculate accurate input/output costs using proper pricing ratios
+                input_cost = self.cost_calculator.calculate_input_cost(model_id, input_tokens)
+                output_cost = self.cost_calculator.calculate_output_cost(model_id, output_tokens)
+                
                 metric = RequestMetric(
                     account_id=account_id,
                     model_id=model_id,
@@ -143,8 +148,8 @@ class MetricsService:
                     input_tokens=input_tokens,
                     output_tokens=output_tokens,
                     total_tokens=total_tokens,
-                    input_cost=cost * (input_tokens / total_tokens) if total_tokens > 0 else 0,
-                    output_cost=cost * (output_tokens / total_tokens) if total_tokens > 0 else 0,
+                    input_cost=input_cost,
+                    output_cost=output_cost,
                     total_cost=cost,
                     latency_ms=latency_ms,
                     cache_hit=cache_hit,
@@ -152,6 +157,8 @@ class MetricsService:
                     error_message=error_message,
                 )
                 
+                db.add(metric)
+                await db.commit()
                 db.add(metric)
                 await db.commit()
                 
