@@ -40,7 +40,7 @@ class MetricsClient:
         try:
             response = requests.get(f"{self.prometheus_url}/-/healthy", timeout=5)
             return response.status_code == 200
-        except:
+        except Exception:
             return False
     
     def check_database_health(self) -> bool:
