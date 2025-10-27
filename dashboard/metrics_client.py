@@ -375,7 +375,7 @@ class MetricsClient:
                         "input_tokens", "output_tokens", "total_cost", "latency_ms"
                     ]
                 )
-        except:
+        except Exception:
             return pd.DataFrame()
     
     def get_cache_metrics(self, time_range: str) -> Dict[str, Any]:
