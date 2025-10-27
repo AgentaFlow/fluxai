@@ -591,7 +591,7 @@ class MetricsClient:
                     }
                     for row in result
                 ]
-        except:
+        except Exception:
             return []
     
     def get_trace_details(self, trace_id: str) -> Optional[Dict[str, Any]]:
