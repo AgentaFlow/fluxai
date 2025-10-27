@@ -254,10 +254,14 @@ Dashboard is responsive and works on mobile devices:
 ```python
 # Add to dashboard/app.py
 import streamlit as st
+import os
 
 def check_password():
+    # NOTE: For security, use environment variables or a secrets manager instead of hardcoded passwords.
+    # Example: Set DASHBOARD_PASSWORD in your environment.
     def password_entered():
-        if st.session_state["password"] == "your_secure_password":
+        expected_password = os.environ.get("DASHBOARD_PASSWORD")
+        if st.session_state["password"] == expected_password:
             st.session_state["password_correct"] = True
         else:
             st.session_state["password_correct"] = False
