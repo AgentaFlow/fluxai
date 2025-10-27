@@ -287,7 +287,7 @@ class CacheService:
         if self.semantic_enabled:
             # Calculate embedding cost based on actual token usage
             # Using a configurable average or calculating from actual usage
-            avg_tokens_per_prompt = getattr(settings, 'CACHE_AVG_TOKENS_PER_PROMPT', 200)
+            avg_tokens_per_prompt = settings.CACHE_AVG_TOKENS_PER_PROMPT
             embedding_cost = (semantic_hits * avg_tokens_per_prompt / 1000) * 0.0001
         
         net_savings = cost_saved - embedding_cost
