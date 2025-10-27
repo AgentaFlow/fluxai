@@ -51,8 +51,6 @@ COPY --from=builder /root/.local /root/.local
 
 # Copy application code
 COPY ./app ./app
-COPY .env.example .env
-
 # Create non-root user for security
 RUN useradd -m -u 1000 fluxai && \
     chown -R fluxai:fluxai /app
