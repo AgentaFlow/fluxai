@@ -68,7 +68,7 @@ PROJECT.md
 CLAUDE.md
 
 # Dashboard (separate service)
-dashboard/
+# dashboard/
 start-dashboard.ps1
 start-dashboard.sh
 
