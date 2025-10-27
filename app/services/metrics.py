@@ -19,7 +19,6 @@ class MetricsService:
         self.initialized = False
         self.metrics = {}
         self.cost_calculator = CostCalculator()
-        self.metrics = {}
     
     def initialize(self):
         """Initialize Prometheus metrics."""
