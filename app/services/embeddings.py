@@ -144,7 +144,7 @@ class EmbeddingService:
         logger.info(
             "Generated batch embeddings",
             count=len(texts),
-            successful=len([e for e in embeddings if sum(e) != 0]),
+            successful=len([e for e in embeddings if e != [0.0] * self.dimension]),
         )
         
         return embeddings
