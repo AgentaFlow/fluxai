@@ -1,7 +1,5 @@
 # FluxAI Gateway - Docker Compose Development Environment
 
-version: '3.8'
-
 services:
   postgres:
     image: postgres:15-alpine
