@@ -236,14 +236,11 @@ CMD ["streamlit", "run", "dashboard/app.py", "--server.port=8501", "--server.add
 
 Build and run:
 
-```bash
-docker build -f Dockerfile.dashboard -t fluxai-dashboard .
-docker run -p 8501:8501 \
-  -e PROMETHEUS_URL=http://prometheus:9090 \
-  -e DATABASE_URL=postgresql://fluxai:password@db:5432/fluxai \
-  fluxai-dashboard
-```
+1. Create a `.env` file with your environment variables:
 
+   ```env
+   PROMETHEUS_URL=http://prometheus:9090
+   DATABASE_URL=postgresql://fluxai:yourpassword@db:5432/fluxai
 ### Kubernetes Deployment
 
 Create `k8s/dashboard-deployment.yaml`:
