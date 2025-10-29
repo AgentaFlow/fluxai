@@ -4,10 +4,12 @@
 
 FluxAI is a cost optimization and observability platform for AWS Bedrock that helps companies reduce their LLM expenses by 30-50% through intelligent caching, smart routing, and real-time analytics.
 
-[![Status](https://img.shields.io/badge/Status-Active%20Development-green)]()
-[![Python](https://img.shields.io/badge/Python-3.11+-blue)]()
-[![FastAPI](https://img.shields.io/badge/FastAPI-Latest-teal)]()
+[![Build and Publish](https://github.com/AgentaFlow/fluxai/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/AgentaFlow/fluxai/actions/workflows/docker-publish.yml)
+[![Security Scan](https://github.com/AgentaFlow/fluxai/actions/workflows/security-scan.yml/badge.svg)](https://github.com/AgentaFlow/fluxai/actions/workflows/security-scan.yml)
+[![Python](https://img.shields.io/badge/Python-3.11+-blue)](https://www.python.org/downloads/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-Latest-teal)](https://fastapi.tiangolo.com)
 [![License](https://img.shields.io/badge/License-See%20LICENSE-lightgrey)](LICENSE)
+[![Docker](https://img.shields.io/badge/Docker-Available-2496ED?logo=docker&logoColor=white)](https://github.com/AgentaFlow/fluxai/pkgs/container/fluxai)
 
 ---
 
@@ -101,6 +103,7 @@ FluxAI is a drop-in optimization layer that sits between your applications and A
 - **[Implementation Guide](fluxai-implementation-guide.md)** - Development roadmap and code examples
 - **[Getting Started (Detailed)](GETTING_STARTED.md)** - Step-by-step setup instructions
 - **[Docker Deployment](DOCKER_DEPLOYMENT.md)** - Complete Docker and Docker Compose guide
+- **[CI/CD Pipeline](CI_CD.md)** - GitHub Actions workflows for security scanning and Docker publishing
 
 ### Deep Dives & Implementation Guides
 
