@@ -2,7 +2,7 @@
 # Optimized multi-stage build for AWS Bedrock cost optimization platform
 # Features: Semantic Cache, Cost Calculator, Multi-Model Router, Observability
 
-FROM python:3.11-slim as builder
+FROM python:3.14-slim as builder
 
 # Set working directory
 WORKDIR /app
@@ -22,7 +22,7 @@ RUN pip install --no-cache-dir --user -r requirements.txt
 # ===================================
 # Production stage
 # ===================================
-FROM python:3.11-slim
+FROM python:3.14-slim
 
 # Metadata
 LABEL maintainer="FluxAI Team"
