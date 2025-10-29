@@ -90,7 +90,7 @@ jobs:
 
       - name: Upload Trivy results to GitHub Security tab
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: 'trivy-api-results.sarif'
           category: 'docker-api'
@@ -165,7 +165,7 @@ jobs:
 
       - name: Upload Trivy results to GitHub Security tab
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: 'trivy-dashboard-results.sarif'
           category: 'docker-dashboard'
