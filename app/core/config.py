@@ -22,7 +22,7 @@ class Settings(BaseSettings):
     LOG_LEVEL: str = "INFO"
     
     # Server
-    HOST: str = "0.0.0.0"
+    HOST: str = "0.0.0.0"  # nosec B104 - Binding to all interfaces is intentional for containerized deployment
     PORT: int = 8080
     WORKERS: int = 4
     RELOAD: bool = True

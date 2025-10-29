@@ -103,7 +103,6 @@ async def invoke_model(
                     model_id=model_id,
                     response=bedrock_response,
                 )
-                )
             
             response_data = bedrock_response
         else:
