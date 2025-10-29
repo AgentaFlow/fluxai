@@ -26,6 +26,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      
+      - name: Convert repository name to lowercase
+        id: lowercase
+        run: |
+          echo "image_name_api=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
+          echo "image_name_dashboard=$(echo ${{ github.repository }}-dashboard | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -42,7 +48,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_API }}
+          images: ${{ env.REGISTRY }}/${{ steps.lowercase.outputs.image_name_api }}
           tags: |
             type=ref,event=branch
             type=ref,event=pr
@@ -68,7 +74,7 @@ jobs:
         if: github.event_name != 'pull_request'
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_API }}:latest
+          image-ref: ${{ env.REGISTRY }}/${{ steps.lowercase.outputs.image_name_api }}:latest
           format: 'sarif'
           output: 'trivy-api-results.sarif'
           severity: 'CRITICAL,HIGH'
@@ -87,6 +93,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      
+      - name: Convert repository name to lowercase
+        id: lowercase
+        run: |
+          echo "image_name_dashboard=$(echo ${{ github.repository }}-dashboard | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -103,7 +114,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_DASHBOARD }}
+          images: ${{ env.REGISTRY }}/${{ steps.lowercase.outputs.image_name_dashboard }}
           tags: |
             type=ref,event=branch
             type=ref,event=pr
@@ -129,7 +140,7 @@ jobs:
         if: github.event_name != 'pull_request'
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_DASHBOARD }}:latest
+          image-ref: ${{ env.REGISTRY }}/${{ steps.lowercase.outputs.image_name_dashboard }}:latest
           format: 'sarif'
           output: 'trivy-dashboard-results.sarif'
           severity: 'CRITICAL,HIGH'
