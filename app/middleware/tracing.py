@@ -70,7 +70,6 @@ class TracingMiddleware:
                 endpoint=self.otlp_endpoint,
                 insecure=use_insecure,
             )
-            )
             span_processor = BatchSpanProcessor(otlp_exporter)
             self.tracer_provider.add_span_processor(span_processor)
             
