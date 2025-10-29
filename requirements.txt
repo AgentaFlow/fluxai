@@ -40,7 +40,7 @@ aiohttp==3.9.1
 # Utilities
 python-dotenv==1.0.0
 tenacity==8.2.3
-numpy==1.26.2
+numpy==2.3.4
 
 # Testing
 pytest==7.4.3
