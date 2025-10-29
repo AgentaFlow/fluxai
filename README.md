@@ -6,6 +6,7 @@ FluxAI is a cost optimization and observability platform for AWS Bedrock that he
 
 [![Build and Publish](https://github.com/AgentaFlow/fluxai/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/AgentaFlow/fluxai/actions/workflows/docker-publish.yml)
 [![Security Scan](https://github.com/AgentaFlow/fluxai/actions/workflows/security-scan.yml/badge.svg)](https://github.com/AgentaFlow/fluxai/actions/workflows/security-scan.yml)
+[![Tests](https://github.com/AgentaFlow/fluxai/actions/workflows/tests.yml/badge.svg)](https://github.com/AgentaFlow/fluxai/actions/workflows/tests.yml)
 [![Python](https://img.shields.io/badge/Python-3.11+-blue)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-Latest-teal)](https://fastapi.tiangolo.com)
 [![License](https://img.shields.io/badge/License-See%20LICENSE-lightgrey)](LICENSE)

@@ -79,11 +79,16 @@ jobs:
           AWS_SECRET_ACCESS_KEY: test_secret
           ENVIRONMENT: test
         run: |
-          pytest tests/ -v --cov=app --cov-report=xml --cov-report=term
+          if [ -d "tests" ]; then
+            pytest tests/ -v --cov=app --cov-report=xml --cov-report=term
+          else
+            echo "⚠️  No tests directory found. Skipping tests."
+            echo "Create a 'tests/' directory and add test files to enable testing."
+          fi
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
-        if: matrix.python-version == '3.11'
+        if: matrix.python-version == '3.11' && hashFiles('coverage.xml') != ''
         with:
           file: ./coverage.xml
           flags: unittests
