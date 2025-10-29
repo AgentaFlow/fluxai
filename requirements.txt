@@ -51,7 +51,7 @@ httpx==0.25.2
 # Dashboard
 streamlit==1.29.0
 plotly==5.18.0
-pandas==2.1.4
+pandas==2.3.3
 
 # Development
 black==23.12.1
