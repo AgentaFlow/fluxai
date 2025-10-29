@@ -97,7 +97,6 @@ jobs:
       - name: Convert repository name to lowercase
         id: lowercase
         run: |
-          echo "image_name_api=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
           echo "image_name_dashboard=$(echo ${{ github.repository }}-dashboard | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
 
       - name: Set up Docker Buildx
