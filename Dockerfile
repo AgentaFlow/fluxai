@@ -11,7 +11,6 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y \
     gcc \
     g++ \
-    postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements
@@ -42,7 +41,6 @@ ENV PYTHONUNBUFFERED=1 \
 
 # Install runtime dependencies only
 RUN apt-get update && apt-get install -y \
-    postgresql-client \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
@@ -51,6 +49,7 @@ COPY --from=builder /root/.local /root/.local
 
 # Copy application code
 COPY ./app ./app
+
 # Create non-root user for security
 RUN useradd -m -u 1000 fluxai && \
     chown -R fluxai:fluxai /app
